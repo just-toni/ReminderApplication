@@ -1,4 +1,7 @@
 package com.reminder.repository;
 
-public class LocationRepository {
+import com.reminder.model.Location;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LocationRepository extends JpaRepository<Location, Long> {
 }

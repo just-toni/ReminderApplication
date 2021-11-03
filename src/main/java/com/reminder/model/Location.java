@@ -1,12 +1,7 @@
 package com.reminder.model;
 
 import lombok.*;
-import org.hibernate.annotations.Entity;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -17,7 +12,7 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long locationId;
     @NonNull
     private String locationName;
     @NonNull

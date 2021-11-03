@@ -1,15 +1,24 @@
 package com.reminder.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Entry {
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long eventId;
     @NonNull
     private String name;
     @NonNull
@@ -27,9 +36,11 @@ public class Entry {
     private Status status;
     @NonNull
     private boolean priority;
-    @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
-
+    @OneToMany(mappedBy = "events", fetch = FetchType.LAZY)
+    @NonNull
+    @Column(name = "event_user")
+    private Set<User> user = new HashSet<>();
+    @OneToOne
+    private Location location;
 
 }

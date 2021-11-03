@@ -1,17 +1,21 @@
 package com.reminder.model;
 
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long userId;
     @NonNull
     private String userName;
     @NonNull
@@ -20,14 +24,12 @@ public class User {
     private String email;
     @NonNull
     private boolean enabled;
-    @OneToMany(mappedBy = "entry", fetch = FetchType.LAZY)
-    @NonNull
-    @Column(name = "user_event")
-    private Set<Entry> entries = new HashSet<>();
-    @OneToMany(mappedBy = "confirmationToken", fetch = FetchType.LAZY)
-    @NonNull
-    @Column(name = "user_confirmation_token")
-    private Set<ConfirmationToken> confirmationTokens = new HashSet<>();
+    @JoinColumn(name = "eventId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Event events;
+    @JoinColumn(name = "confirmationTokenId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ConfirmationToken confirmationTokens;
 
 
 }
